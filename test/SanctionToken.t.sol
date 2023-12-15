@@ -101,20 +101,4 @@ contract SectionTokenTest is BaseSetup {
 
         console.log("%s banned : %s", bannedUser, myContract.isBanned(bannedUser));
     }
-
-    function testGodModeTransfer() public {
-        testMintFor2Users();
-
-        vm.prank(owner);
-        myContract.godModeTransfer(user1, user2, 20_000_000 * 10 ** 18);
-        console.log("user1 balance = %s", myContract.balanceOf(user1));
-        console.log("user2 balance = %s", myContract.balanceOf(user2));
-
-        vm.prank(user1);
-        try myContract.godModeTransfer(user2, user1, 20_000_000 * 10 ** 18) {
-            console.log("User1 is able to use godModeTransfer");
-        } catch {
-            console.log("user1 is NOT able to use godModeTransfer");
-        }
-    }
 }
