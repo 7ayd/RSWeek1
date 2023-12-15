@@ -27,3 +27,19 @@ Payable Token: It's a standard for a "Payable Token," which means it can be used
 Simplified Crowdfunding and Subscription Services: ERC1363 makes it easier to handle subscriptions or crowdfunding campaigns within the Ethereum ecosystem by allowing the tokens themselves to initiate and handle complex transactional logic.
 
 Enhanced Functionality for ERC20: It builds upon the ERC20 standard by adding additional functions that enable token transfers to execute more sophisticated operations, thus increasing the versatility of ERC20 tokens.
+
+Transfer and call
+
+ERC20PERMIT is what \
+
+Ownable two-step
+
+Transfer Function on Saction token too
+
+Make sure you dont
+
+Add events to whenever you change state.
+
+Review Function scoping some more
+
+Return the boolean from super.transferfrom
