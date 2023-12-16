@@ -8,6 +8,9 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 contract SanctionToken is ERC20, Ownable {
     mapping(address => bool) private _bannedAddresses;
 
+    event AddressBanned(address indexed _address);
+    event AddressUnbanned(address indexed _address);
+
     constructor(string memory name, string memory symbol) ERC20(name, symbol) Ownable(msg.sender) {}
 
     /// @notice Holder is able burn tokens
@@ -29,12 +32,14 @@ contract SanctionToken is ERC20, Ownable {
     /// @param _address Address of which address will be banned
     function banAddress(address _address) public onlyOwner {
         _bannedAddresses[_address] = true;
+        emit AddressBanned(_address);
     }
 
     /// @notice Owner is able to to unban addresses from transfering tokens
     /// @param _address Address of which address will be banned
     function unbanAddress(address _address) public onlyOwner {
         _bannedAddresses[_address] = false;
+        emit AddressUnbanned(_address);
     }
 
     /// @notice Check if address is banned
