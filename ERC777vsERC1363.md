@@ -44,8 +44,6 @@ Implementing contracts MUST implement the ERC-1363 interface as well as the ERC-
 
 ERC1363 does not allow sending to EOAs or using an EOA as the spender/operator.
 
-Transfer and call
-
 ERC20PERMIT is what \
 
 Ownable two-step
