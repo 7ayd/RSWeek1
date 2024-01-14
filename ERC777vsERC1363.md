@@ -11,6 +11,8 @@ Advanced Token Control: It allows token holders more control over their tokens, 
 
 Increased Transparency: With ERC777, users can see which contracts will interact with their tokens, increasing the transparency of token transactions.
 
+TDLR: Adds hooks and the ability for operators for tokens.
+
 Issues:
 
 Backward Compatibility: ERC777 is not fully backward-compatible with ERC20. Some existing contracts designed for ERC20 may not function correctly with ERC777 tokens, leading to potential issues like lost tokens.
@@ -27,6 +29,20 @@ Payable Token: It's a standard for a "Payable Token," which means it can be used
 Simplified Crowdfunding and Subscription Services: ERC1363 makes it easier to handle subscriptions or crowdfunding campaigns within the Ethereum ecosystem by allowing the tokens themselves to initiate and handle complex transactional logic.
 
 Enhanced Functionality for ERC20: It builds upon the ERC20 standard by adding additional functions that enable token transfers to execute more sophisticated operations, thus increasing the versatility of ERC20 tokens.
+
+ERC1363 has the following functions:
+
+`function transferAndCall(address to, uint256 value) external returns (bool);`
+
+`function approveAndCall(address spender, uint256 value) external returns (bool); `
+
+Implementing contracts MUST implement the ERC-1363 interface as well as the ERC-20 and ERC-165 interfaces.
+
+`transferAndCall` and `transferFromAndCall` will call an `onTransferReceived`on a `ERC1363Receiver` contract.
+
+`approveAndCall` will call an `onApprovalReceived` on a `ERC1363Spender` contract.
+
+ERC1363 does not allow sending to EOAs or using an EOA as the spender/operator.
 
 Transfer and call
 
