@@ -16,7 +16,7 @@ contract TokenEscrow {
     bool withdrawn;
 
     event EscrowCreated(address withdrawer, address depositor, IERC20 indexed token, uint256 ammount);
-    event EscrowWithdrawn(address withdrawer, address depositor, IERC20 indexed token, uint256 ammount);
+    event EscrowWithdrawn(address withdrawer, uint256 timeWithdrawn, IERC20 indexed token, uint256 ammount);
 
     function startEscrow(address _depositor, address _withdrawer, IERC20 _token, uint256 _ammount) public {
         //Checks
@@ -34,11 +34,27 @@ contract TokenEscrow {
         withdrawn = false;
 
         //Interactions
+        IERC20(token).safeTransferFrom(msg.sender, address(this), _ammount);
         emit EscrowCreated(_withdrawer, _depositor, _token, _ammount);
     }
 
     function withdrawEscrow() public {
+        //Checks
         require(msg.sender == withdrawer, "Not withdrawer");
+        require(block.timestamp > createdAt + 3 days);
+        require(!withdrawn, "Already withdrawn");
+
+        //Effects
+        uint256 _ammount = ammount;
+        withdrawn = true;
+
+        //Interactions
+        IERC20(token).safeTransferFrom(address(this), withdrawer, ammount);
+        emit EscrowWithdrawn(msg.sender, block.timestamp, token, _ammount);
+    }
+
+    function getDetails() public view returns (address, address, IERC20, uint256, uint256, bool) {
+        return (withdrawer, depositor, token, ammount, createdAt, withdrawn);
     }
 }
 
@@ -59,3 +75,13 @@ Does your contract handle fee-on transfer tokens or non-standard ERC20 tokens.
 // Events
 // Modifiers
 // Functions
+
+// Layout of Functions:
+// constructor
+// receive function (if exists)
+// fallback function (if exists)
+// external
+// public
+// internal
+// private
+// view & pure functions
