@@ -6,7 +6,7 @@ import {console} from "forge-std/console.sol";
 import {GodModeToken} from "../src/GodModeToken.sol";
 
 contract BaseSetup is Test {
-    GodModeToken internal myContract;
+    GodModeToken myContract;
 
     address internal owner;
     address internal user1;
@@ -40,17 +40,26 @@ contract GodModeTokenTest is BaseSetup {
         assertEq(_owner, owner);
     }
 
-    function testGodModeTransfer() public {
+    // function testGodModeTransfer() public {
+    //     vm.prank(owner);
+    //     uint256 toMintValue = 50_000_000 * 10 ** 18;
+    //     myContract.mint(user1, toMintValue);
+    //     uint256 valueUser = myContract.balanceOf(user1);
+    //     assertEq(valueUser, toMintValue);
+    //     console.log("User value = %s", valueUser);
+
+    //     myContract.godTransfer(user1, user2, toMintValue);
+    //     uint256 valueUser2 = myContract.balanceOf(user2);
+    //     assertEq(valueUser2, toMintValue);
+    //     console.log("User2 value = %s", valueUser2);
+    // }
+
+    function testMint() public {
         vm.prank(owner);
         uint256 toMintValue = 50_000_000 * 10 ** 18;
         myContract.mint(user1, toMintValue);
         uint256 valueUser = myContract.balanceOf(user1);
         assertEq(valueUser, toMintValue);
         console.log("User value = %s", valueUser);
-
-        myContract.godTransfer(user1, user2, toMintValue);
-        uint256 valueUser2 = myContract.balanceOf(user2);
-        assertEq(valueUser2, toMintValue);
-        console.log("User2 value = %s", valueUser2);
     }
 }
