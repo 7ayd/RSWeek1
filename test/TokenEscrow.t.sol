@@ -25,4 +25,16 @@ contract TokenEscrowTest is BaseSetup {
     function setUp() public override {
         super.setUp();
     }
+
+    function testStartEscrow() public {
+        withdrawer = vm.addr(1);
+        depositor = vm.addr(2);
+        token = IERC20(vm.addr(3));
+        ammount = 100;
+        createdAt = block.timestamp;
+        withdrawn = false;
+
+        escrow.startEscrow(depositor, withdrawer, token, ammount);
+        console.log("Escrow created");
+    }
 }
